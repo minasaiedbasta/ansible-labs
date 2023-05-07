@@ -1,0 +1,24 @@
+- name: Update and install nginx
+  hosts: all
+  become: true
+  tasks:
+    - name: Update packages
+      yum:
+        name: '*'
+        state: latest
+        update_cache: yes
+      tags:
+        - update
+
+    - name: Install nginx
+      yum:
+        name: nginx
+        state: latest
+      tags:
+        - install
+
+    - name: Always run this task
+      debug:
+        msg: "task with always tag"
+      tags:
+        - always

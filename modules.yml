@@ -1,0 +1,26 @@
+- name: run a simple website using nginx
+  hosts: all
+  become: true
+
+  tasks:
+  - name: Update package cache
+    become: true
+    yum:
+      name: '*'
+      state: latest
+      update_cache: yes
+
+  - name: Install nginx
+    yum:
+      name: nginx
+      state: latest
+
+  - name: Copy index.html from controller to host 1
+    copy:
+      src: ./index.html
+      dest: /usr/share/nginx/html/index.html
+
+  - name: Restart nginx service
+    systemd:
+      name: nginx
+      state: restarted

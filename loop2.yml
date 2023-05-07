@@ -1,0 +1,11 @@
+- name: my play with loops
+  hosts: all
+  tasks:
+    - name: my task with loops
+      yum:
+        name: "{{ item.package_name }}"
+        state: "{{ item.package_state }}"
+      loop:
+      - { package_name: "nginx", package_state: "present"}
+      - { package_name: "mariadb-server", package_state: "absent"}
+      - { package_name: "curl", package_state: "latest" }

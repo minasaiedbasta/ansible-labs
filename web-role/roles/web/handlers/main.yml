@@ -1,0 +1,11 @@
+- name: Copy files
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/share/nginx/html/{{ item }}"
+  with_items: "{{ files }}"
+  notify: Restart service
+
+- name: Restart service
+  service:
+    name: "{{ package_name }}"
+    state: restarted

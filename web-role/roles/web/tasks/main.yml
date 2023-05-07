@@ -1,0 +1,20 @@
+- name: Install package
+  yum:
+    name: "{{ package_name }}"
+    state: present
+  notify: Copy files
+  register: package_result
+
+- name: Copy files from controller to host
+  copy:
+    src: "{{ item }}"
+    dest: "/usr/share/nginx/html/{{ item }}"
+  with_items: "{{ files }}"
+  when: package_result.changed
+  register: copy_result
+
+- name: Restart service
+  service:
+    name: "{{ package_name }}"
+    state: restarted
+  when: copy_result.changed

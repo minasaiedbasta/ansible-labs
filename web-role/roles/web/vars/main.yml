@@ -1,0 +1,7 @@
+package_name: nginx
+files:
+  - index.html
+  - style.css
+template_name: index.html.j2
+template_message: hello world!
+

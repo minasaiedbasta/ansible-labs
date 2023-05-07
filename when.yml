@@ -1,0 +1,18 @@
+- name: Install nginx or apache2 depending on distribution
+  hosts: all
+  tasks:
+    - name: Install nginx on CentOS
+      yum:
+        name: nginx
+        state: present
+      when: ansible_distribution == 'CentOS'
+    - name: Install apache2 on Ubuntu
+      apt:
+        name: apache2
+        state: present
+      when: ansible_distribution == 'Ubuntu'
+    - name: Restart nginx service on Ubuntu
+      service:
+        name: nginx
+        state: restarted
+      when: ansible_distribution == 'Ubuntu' and restart_nginx == true

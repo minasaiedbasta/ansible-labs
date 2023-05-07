@@ -1,0 +1,11 @@
+- name: my play with loops
+  hosts: all
+  tasks:
+    - name: my task with loops
+      yum:
+        name: "{{ item }}"
+        state: latest
+      loop:
+      - nginx
+      - mariadb-server
+      - curl

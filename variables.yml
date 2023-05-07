@@ -1,0 +1,10 @@
+- name: install nginx using variables
+  hosts: all
+  vars:
+    package_name: nginx
+    package_version: latest
+  tasks:
+    - name: Install nginx
+      yum:
+        name: "{{package_name}}"
+        state: "{{package_version}}"
